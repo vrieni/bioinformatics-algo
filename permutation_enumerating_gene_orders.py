@@ -7,6 +7,22 @@
 #followed by a list of all such permutations (in any order).
 
 
+def permutation(sequence):
+    if len(sequence) == 0:
+        return []
+    elif len(sequence) == 1:
+        return [sequence]
+    else:
+        l = []
+        for i in range(len(sequence)):
+            x = sequence[i]
+            xs = sequence[:i] + sequence[i+1:]
+            for p in permutation(xs):
+                l.append([x] + p)
+
+        return l
+
+
 def permutation_yield(sequence):
     if len(sequence) == 0:
         yield []
@@ -25,10 +41,15 @@ data = list('12345')
 
 print 'permutation'
 ctr = 0
-for p in permutation_yield(data):
+for p in permutation(data):
     ctr += 1
     print ' '.join(str(i) for i in p)
 
 print ctr
+
+# print 'permutation yield'
+# for p in permutation_yield(data):
+#     print p
+
 
 
